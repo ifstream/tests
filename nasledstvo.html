@@ -275,10 +275,10 @@
   <!-- START -->
   <div id="start-screen">
     <h1>Наследственное право</h1>
-    <p>Тест по файлам. Всего вопросов в базе: 170.</p>
+    <p>Тест по файлам. Всего вопросов в базе: <span id="total-count">…</span>.</p>
     <div class="start-options">
       <label class="active" onclick="selectMode(this, 'all')">
-        <input type="radio" name="mode" value="all" checked> Все вопросы (170)
+        <input type="radio" name="mode" value="all" checked> Все вопросы
       </label>
       <label onclick="selectMode(this, '20')">
         <input type="radio" name="mode" value="20"> 20 вопросов
@@ -290,7 +290,7 @@
         <input type="radio" name="mode" value="custom"> Своё количество
       </label>
       <div class="custom-input" id="custom-wrap">
-        <input type="number" id="custom-num" min="1" max="170" placeholder="Введите число" value="30">
+        <input type="number" id="custom-num" min="1" max="999" placeholder="Введите число" value="30">
       </div>
     </div>
     <button class="btn btn-primary" onclick="startQuiz()">Начать тест</button>
@@ -2666,6 +2666,19 @@ let current = 0;
 let userAnswers = []; // array of arrays of selected option indices
 let answered = [];    // boolean
 
+(function initCounts() {
+  const total = quizQuestions.length;
+  const totalEl = document.getElementById('total-count');
+  const allEl = document.getElementById('all-count');
+  const customInput = document.getElementById('custom-num');
+  if (totalEl) totalEl.textContent = total;
+  if (allEl) allEl.textContent = total;
+  if (customInput) {
+    customInput.max = total;
+    if (parseInt(customInput.value) > total) customInput.value = total;
+  }
+})();
+  
 function selectMode(label, mode) {
   document.querySelectorAll('.start-options label').forEach(l => l.classList.remove('active'));
   label.classList.add('active');
