@@ -2156,7 +2156,7 @@ const quizQuestions = [
     "q": "При удостоверении завещания нотариус обязан разъяснить завещателю положения закона о:",
     "options": [
       "праве на обязательную долю в наследстве",
-      "право на обязательную долю в наследстве",
+      "право на необязательную долю в наследстве",
       "правила о равном распределении наследства между всеми родственниками",
       "нотариус обязан разъяснить завещателю только правила об обязательной доле, если завещатель сам об этом попросит"
     ],
@@ -2817,7 +2817,7 @@ function isAnswerCorrect(idx) {
   const selectedTexts = selected.map(i => q.options[i].toLowerCase());
   const correctTexts = q.correct.map(c => c.toLowerCase());
   if (selectedTexts.length !== correctTexts.length) return false;
-  return correctTexts.every(c => selectedTexts.some(s => s === c || s.includes(c) || c.includes(s)));
+  return correctTexts.every(c => selectedTexts.some(s => s === c));
 }
 
 function checkAnswer() {
