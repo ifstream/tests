@@ -2715,7 +2715,7 @@ function startQuiz() {
     }).filter(Boolean);
     // remap correctly
     const correctSet = new Set(q.correct.map(c => c.toLowerCase()));
-    const mappedCorrect = newOpts.filter(o => correctSet.has(o.toLowerCase()) || [...correctSet].some(c => o.toLowerCase().includes(c) || c.includes(o.toLowerCase())));
+    const mappedCorrect = newOpts.filter(o => correctSet.has(o.toLowerCase()));
     return { ...q, options: newOpts, correct: mappedCorrect.length ? mappedCorrect : q.correct };
   });
   userAnswers = questions.map(() => []);
@@ -2755,7 +2755,7 @@ function renderQuestion() {
       });
     }
     if (isAnswered) {
-      const isCorrect = q.correct.some(c => c.toLowerCase() === opt.toLowerCase() || opt.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(opt.toLowerCase()));
+      const isCorrect = q.correct.some(c => c.toLowerCase() === opt.toLowerCase());
       if (selected.includes(i) && !isCorrect) div.classList.add('wrong');
       if (isCorrect) div.classList.add('correct');
       if (selected.includes(i)) div.classList.add('selected');
